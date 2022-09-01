@@ -2,7 +2,7 @@
 	"name": "game",
 	"private": true,
 	"scripts": {
-		"gh-pages": "NODE_DEBUG=gh-pages node scripts/gh-pages.cjs",
+		"deploy:gh-pages": "NODE_DEBUG=gh-pages node scripts/gh-pages.cjs",
 		"dev": "vite",
 		"build": "vite build",
 		"preview": "vite preview"
