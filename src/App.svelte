@@ -6,7 +6,7 @@
     import Tabs from './Tabs.svelte';
     import Select from './Select.svelte';
     import assetMetaData from './assets/all.json';
-    import getThemeMode from "src/utils/getThemeMode";
+    import getThemeMode from "./utils/getThemeMode";
 
     const root = document.querySelector(':root');
     const assetNames = Object.keys(assetMetaData)

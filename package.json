@@ -8,10 +8,10 @@
 		"preview": "vite preview"
 	},
 	"devDependencies": {
-		"gh-pages": "^4.0.0",
 		"@sveltejs/vite-plugin-svelte": "^1.0.1",
 		"@vitejs/plugin-legacy": "^2.0.1",
 		"autoprefixer": "^10.4.8",
+		"gh-pages": "^4.0.0",
 		"sass": "^1.54.4",
 		"svelte": "^3.49.0",
 		"svelte-preprocess": "^4.10.7",
@@ -23,6 +23,7 @@
 	],
 	"dependencies": {
 		"json-source-map": "^0.6.1",
-		"svelte-jsoneditor": "^0.6.4"
+		"svelte-jsoneditor": "^0.6.4",
+		"terser": "^5.15.0"
 	}
 }
