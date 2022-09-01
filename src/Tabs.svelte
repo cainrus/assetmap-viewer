@@ -6,9 +6,11 @@
     export let tabs = [];
 
     function onClick(tab) {
-        tabs.forEach(item => {
-            item.active = tab === item;
-        });
+        if (tab.selectable !== false) {
+            tabs.forEach(item => {
+                item.active = tab === item;
+            });
+        }
         dispatch('select', tab);
     }
 

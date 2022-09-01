@@ -6,6 +6,7 @@
     import Tabs from './Tabs.svelte';
     import Select from './Select.svelte';
     import assetMetaData from './assets/all.json';
+    import getThemeMode from "src/utils/getThemeMode";
 
     const root = document.querySelector(':root');
     const assetNames = Object.keys(assetMetaData)
@@ -120,18 +121,37 @@
         onActivate: toggleEdit,
     };
 
+    let themeMode = getThemeMode();
+    function getThemeTabIcon(themeMode) {
+        return themeMode === 'dark' ? 'bi-moon' : 'bi-sun';
+    }
+    function toggleMode(themeMode) {
+        return themeMode === 'dark' ? 'light' : 'dark';
+    }
+    let themeTab = {
+        icon: getThemeTabIcon(themeMode),
+        selectable: false,
+        onActivate() {
+            themeMode = toggleMode(themeMode);
+            themeTab.icon = getThemeTabIcon(themeMode);
+        },
+    };
+
     $: tabs = [
         pauseTab,
         sourceTab,
+        themeTab,
     ];
+
     $: activeTab = tabs.find((tab) => tab.active);
     $: isPlayTabActive = activeTab === pauseTab;
-    $: isSourceTabActive = activeTab === sourceTab;
+        $: isSourceTabActive = activeTab === sourceTab;
     $: spriteWrapperStyles = [
         `transform: scale(${assetScale})`,
         'display: ' + pauseTab.active? 'block' : 'none',
     ].join(';');
     $: animationSpeed = assetAnimationSpeed / animationSpeedRatio;
+    $: isDarkMode = themeMode === 'dark';
 </script>
 
 <main class="col">
@@ -195,3 +215,9 @@
   }
 
 </style>
+
+<svelte:head>
+    {#if isDarkMode}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/css/bootstrap-dark.min.css" rel="stylesheet">
+    {/if}
+</svelte:head>
