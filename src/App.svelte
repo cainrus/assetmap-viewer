@@ -12,6 +12,12 @@
     const root = document.querySelector(':root');
     const assetNames = Object.keys(assetMetaData)
         .filter(name => !name.startsWith('_'));
+    const limits = assetNames.reduce((acc, name) => ({
+        w: Math.max(acc.w, getMax(assetMetaData[name], 'w')),
+        h: Math.max(acc.h, getMax(assetMetaData[name], 'h')),
+    }), {h: 0, w: 0});
+    setCssVar('assetMaxWidth', `${limits.w}px`)
+    setCssVar('assetMaxHeight', `${limits.h}px`)
 
     let assetAnimationSpeed = 0;
     let animationSpeedRatio = 1;
