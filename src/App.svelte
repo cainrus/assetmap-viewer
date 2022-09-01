@@ -1,4 +1,5 @@
 <script lang="ts">
+    import 'svelte-jsoneditor/themes/jse-theme-dark.css';
     import {JSONEditor} from 'svelte-jsoneditor';
 
     import SpeedRatioInput from './SpeedRatioInput.svelte';
@@ -11,12 +12,6 @@
     const root = document.querySelector(':root');
     const assetNames = Object.keys(assetMetaData)
         .filter(name => !name.startsWith('_'));
-    const limits = assetNames.reduce((acc, name) => ({
-        w: Math.max(acc.w, getMax(assetMetaData[name], 'w')),
-        h: Math.max(acc.h, getMax(assetMetaData[name], 'h')),
-    }), {h: 0, w: 0});
-    setCssVar('assetMaxWidth', `${limits.w}px`)
-    setCssVar('assetMaxHeight', `${limits.h}px`)
 
     let assetAnimationSpeed = 0;
     let animationSpeedRatio = 1;
@@ -152,6 +147,7 @@
     ].join(';');
     $: animationSpeed = assetAnimationSpeed / animationSpeedRatio;
     $: isDarkMode = themeMode === 'dark';
+    $: JSONEditorTheme = themeMode === 'dark' ? 'jse-theme-dark' : '';
 </script>
 
 <main class="col">
@@ -176,7 +172,7 @@
     </div>
     {/if}
     {#if isSourceEnabled }
-    <div style="display: {(isSourceTabActive) ? 'block' : 'none'}">
+    <div style="display: {isSourceTabActive ? 'block' : 'none'}" class="{ JSONEditorTheme }">
         <JSONEditor bind:content
             readOnly={true}
             indentation={2}
